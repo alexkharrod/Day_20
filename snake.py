@@ -1,28 +1,29 @@
-from idlelib.colorizer import color_config
-from turtle import Turtle, Screen
+from turtle import Turtle
 
-
+STARTING_POSITIONS = [0, -20, -40]
+MOVE_DISTANCE = 20
 
 
 class Snake:
-    segments = []
-    starting_positions = [0, -20, -40]
 
     def __init__(self):
+        self.segments = []
+        self.create_snake()
 
 
-        for position in range(3):
+    def create_snake(self):
+        for position in STARTING_POSITIONS:
             new_segment = Turtle("square")
             new_segment.color("white")
             new_segment.penup()
-            new_segment.goto(Snake.starting_positions[position], 0)
-            Snake.segments.append(new_segment)
+            new_segment.goto(position,0)
+            self.segments.append(new_segment)
 
 
 
     def snake_move(self):
         for snake in range(len(self.segments) - 1, 0, -1):
-            new_x = Snake.segments[snake -1].xcor()
-            new_y = Snake.segments[snake - 1].ycor()
-            Snake.segments[snake].goto(new_x, new_y)
-        Snake.segments[0].forward(20)
+            new_x = self.segments[snake -1].xcor()
+            new_y = self.segments[snake - 1].ycor()
+            self.segments[snake].goto(new_x, new_y)
+        self.segments[0].forward(MOVE_DISTANCE)
